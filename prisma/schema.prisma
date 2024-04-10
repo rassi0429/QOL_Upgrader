@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @default(cuid())
+
+  nowSleeping        Boolean   @default(false)
+  sleepTempStartTime DateTime?
+  sleeps             Sleep[]
+
+  furos Furo[]
+}
+
+model Sleep {
+  id String @id @default(cuid())
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  startTime DateTime
+  endTime   DateTime
+}
+
+model Furo {
+  id String @id @default(cuid())
+
+  user User @relation(fields: [userId], references: [id])
+  userId String
+
+  time DateTime
+}
