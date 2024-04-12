@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  app:
+    image: ghcr.io/katteni-kaihatu/zoubank-frontend:latest
+    restart: always
+    volumes:
+      - ./sqlite3.db:/app/prisma/sqlite3.db
+    ports:
+      - "3001:3000"
+    environment:
+        - ZOUBANK_API_TOKEN=
