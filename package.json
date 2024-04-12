@@ -5,7 +5,7 @@
   "main": "build/main.js",
   "scripts": {
     "build": "tsc",
-    "start": "node ./build/main.mjs"
+    "start": "node ./build/main.js"
   },
   "author": "",
   "license": "ISC",

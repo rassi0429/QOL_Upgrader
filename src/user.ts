@@ -1,14 +1,14 @@
 import {PrismaClient, User} from "@prisma/client";
-import {getBankIdFromResoniteUserId} from "./auth";
+import {getBankIdFromResoniteUserId} from "./lib/auth";
 
 
-export async function getUserByResoniteUserId(prisma: PrismaClient, resoniteUserId: string): Promise<User & {furos: any[], sleeps: any[]}> {
+export async function getUserByResoniteUserId(prisma: PrismaClient, resoniteUserId: string): Promise<Partial<User & {furos: any[], sleeps: any[]}>> {
     const userId = await getBankIdFromResoniteUserId(resoniteUserId)
     const user = await prisma.user.findUnique({
         where: {
             id: userId
         },
-        select: {
+        include: {
             furos: true,
             sleeps: true,
         }
@@ -22,7 +22,7 @@ export async function getUserByResoniteUserId(prisma: PrismaClient, resoniteUser
         data: {
             id: userId
         },
-        select: {
+        include: {
             furos: true,
             sleeps: true,
         }

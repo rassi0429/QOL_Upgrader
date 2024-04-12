@@ -1,4 +1,4 @@
 node_modules
 build
-**/sqlite3.db
+prisma/sqlite3_.db
 **/sqlite3.db-journal
