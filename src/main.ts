@@ -22,6 +22,9 @@ app.get('/user/furo/:resoniteUserId', async (req, res) => {
     const furoData = await prisma.furo.findMany({
         where: {
             userId: userId
+        },
+        orderBy: {
+            time: 'desc'
         }
     })
 
