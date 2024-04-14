@@ -39,7 +39,7 @@ app.post('/user/furo/:resoniteUserId', async (req, res) => {
         res.json({message: "First time furo", reward: result.reward})
     }
     else if(result.result === Furo_Result.SUCCESS) {
-        res.json({message: "Furo", reward: result.reward})
+        res.json({message: "Furo", reward: result.reward, span: result.span})
     } else {
         res.status(500).json({error: "Unknown error"})
     }
