@@ -25,7 +25,7 @@ export async function getFuroDataByUserId(prisma: PrismaClient, userId: string):
     return furoData
 }
 
-export async function doFuro(prisma: PrismaClient, resoniteUserId: string): Promise<{result: Furo_Result, reward?: number}> {
+export async function doFuro(prisma: PrismaClient, resoniteUserId: string): Promise<{result: Furo_Result, reward?: number, span?: number}> {
     const userId = await getBankIdFromResoniteUserId(resoniteUserId)
     if (!userId) {
         return {
@@ -66,17 +66,20 @@ export async function doFuro(prisma: PrismaClient, resoniteUserId: string): Prom
             time: time,
         }
     })
-    const reward = calcZouCoin(time.getTime() - furoData[0].time.getTime())
+    const span = time.getTime() - furoData[0].time.getTime()
+    const reward = calcZouCoin(span)
     if(reward !== 0) {
         const coinResult = await sendZouCoin(userId, reward, "お風呂に入った報酬")
         return {
             result: Furo_Result.SUCCESS,
-            reward: reward
+            reward: reward,
+            span: span
         }
     } else {
         return {
             result: Furo_Result.SUCCESS,
-            reward: 0
+            reward: 0,
+            span: span
         }
     
     }
