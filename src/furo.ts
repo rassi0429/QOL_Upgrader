@@ -37,6 +37,9 @@ export async function doFuro(prisma: PrismaClient, resoniteUserId: string): Prom
     const furoData = await prisma.furo.findMany({
         where: {
             userId: userId
+        },
+        orderBy: {
+            time: 'desc'
         }
     })
 
