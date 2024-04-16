@@ -30,7 +30,7 @@ app.get('/user/furo/:resoniteUserId', async (req, res) => {
 
     res.json({
         ...user,
-        currentReward: furoData.length === 0 ? 200 : calcZouCoin(new Date().getTime() - furoData[0].time.getTime()),
+        currentReward: furoData.length === 0 ? 20 : calcZouCoin(new Date().getTime() - furoData[0].time.getTime()),
         furoData: furoData
     })
 

@@ -54,7 +54,7 @@ export async function doFuro(prisma: PrismaClient, resoniteUserId: string): Prom
                 time: time
             }
         })
-        const reward = 200
+        const reward = 20
         const coinResult = await sendZouCoin(userId, reward, "お風呂に入った報酬", {furoId: createResult.id})
         return {
             result: Furo_Result.SUCCESS_FIRST_TIME,
