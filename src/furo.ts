@@ -46,7 +46,7 @@ export async function doFuro(prisma: PrismaClient, resoniteUserId: string): Prom
     const time = new Date()
 
     if (furoData.length === 0) {
-        await prisma.furo.create({
+        const createResult = await prisma.furo.create({
             data: {
                 user:{
                     connect: {id: userId}
@@ -55,7 +55,7 @@ export async function doFuro(prisma: PrismaClient, resoniteUserId: string): Prom
             }
         })
         const reward = 200
-        const coinResult = await sendZouCoin(userId, reward, "お風呂に入った報酬")
+        const coinResult = await sendZouCoin(userId, reward, "お風呂に入った報酬", {furoId: createResult.id})
         return {
             result: Furo_Result.SUCCESS_FIRST_TIME,
             reward: reward
@@ -63,7 +63,7 @@ export async function doFuro(prisma: PrismaClient, resoniteUserId: string): Prom
     }
 
 
-    await prisma.furo.create({
+    const createResult = await prisma.furo.create({
         data: {
             userId: userId,
             time: time,
@@ -72,7 +72,7 @@ export async function doFuro(prisma: PrismaClient, resoniteUserId: string): Prom
     const span = time.getTime() - furoData[0].time.getTime()
     const reward = calcZouCoin(span)
     if(reward !== 0) {
-        const coinResult = await sendZouCoin(userId, reward, "お風呂に入った報酬")
+        const coinResult = await sendZouCoin(userId, reward, "お風呂に入った報酬", {furoId: createResult.id})
         return {
             result: Furo_Result.SUCCESS,
             reward: reward,
@@ -93,11 +93,11 @@ export function calcZouCoin(time: number): number {
     if (0 <= hour && hour < 6) {
         return 0
     } else if (6 <= hour && hour < 18) {
-        return 75
+        return 7.5
     } else if (18 <= hour && hour < 36) {
-        return 100
+        return 10
     } else {
-        return 25
+        return 2.5
     }
 }
 

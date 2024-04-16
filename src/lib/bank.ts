@@ -1,5 +1,5 @@
 
-export async function sendZouCoin(receiverId: string, amount: number, memo?: string) {
+export async function sendZouCoin(receiverId: string, amount: number, memo?: string,customData? :any) {
     const result = await fetch(
         "https://zoubank.resonite.love/api/transaction",
         {
@@ -11,7 +11,8 @@ export async function sendZouCoin(receiverId: string, amount: number, memo?: str
             body: JSON.stringify({
                 recipientId: receiverId,
                 amount: amount,
-                memo: memo ?? ""
+                memo: memo ?? "",
+                customData: customData ?? {}
             })
         }
     )
