@@ -93,11 +93,11 @@ export function calcZouCoin(time: number): number {
     if (0 <= hour && hour < 6) {
         return 0
     } else if (6 <= hour && hour < 18) {
-        return 7.5
+        return 75
     } else if (18 <= hour && hour < 36) {
-        return 10
+        return 100
     } else {
-        return 2.5
+        return 25
     }
 }
 
